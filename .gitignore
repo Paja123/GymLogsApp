@@ -1,47 +1,57 @@
-## [ .NET Specifično ] ##
-# Specijalni folderi za kompajliranje
+## ========== [ .NET / Backend ] ==========
 [Bb]in/
 [Oo]bj/
 [Ll]og/
 
-# User Secrets (Ovo je ključno za tvoju lozinku!)
-secrets.json
-.microsoft/usersecrets/
+#Local Settings
+appsettings.Development.json
+.env
+.env.*
 
-# Visual Studio fajlovi
+# Visual Studio files
 .vs/
 *.user
 *.userosscache
 *.sln.docstates
 
-# Podaci o bazi i migracije (opciono, ali preporučeno)
-*.db
-*.db-shm
-*.db-wal
+## ========== [ Angular / Frontend ] ==========
+# Dependencies
+**/node_modules/
 
-## [ Angular / Frontend Specifično ] ##
-# Zavisnosti (nikada ne push-uj node_modules!)
-node_modules/
-dist/
-tmp/
-out-tsc/
-bazel-out/
+# Compiled output
+Frontend/dist/
+Frontend/tmp/
+Frontend/out-tsc/
+Frontend/bazel-out/
 
-# Logovi i keš
-.npm/
+# Logs and cache
+Frontend/.angular/
+Frontend/.sass-cache/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.angular/
+testem.log
+/Frontend/libpeerconnection.log
 
-## [ OS i Editori ] ##
-.vscode/
+# Testing
+Frontend/coverage/
+Frontend/__screenshots__/
+
+## ========== [ IDEs & Editors ] ==========
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/
+
+## ========== [ System Files ] ==========
 .DS_Store
 Thumbs.db
-
-## [ Environment Variables ] ##
-.env
-.env.local
-.env.*.local
-appsettings.Development.json
