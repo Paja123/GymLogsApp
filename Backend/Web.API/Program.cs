@@ -4,8 +4,13 @@ using System;
 using Infrastructure.Persistance.Context;
 using Infrastructure.DependencyInjection;
 using System.Text.Json.Serialization;
+using Web_API.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 
 builder.Services.AddCors(options =>
 {
@@ -30,6 +35,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {

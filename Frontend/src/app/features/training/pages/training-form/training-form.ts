@@ -36,20 +36,6 @@ export class TrainingForm  {
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     return now.toISOString().slice(0, 16);
   }
-  // constructor(
-  //   private fb =  inject(FormBuilder),
-  //   private trainingService =  inject(TrainingService)
-  // ){
-    //  this.trainingForm = this.fb.group({
-    //   trainingType: [null, Validators.required],
-    //   duration: [0, [Validators.required, Validators.min(1)]],
-    //   intensityLevel: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
-    //   tirednessLevel: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
-    //   caloriesBurned: [null, Validators.min(0)],
-    //   date: [new Date().toISOString().substring(0, 16), Validators.required],
-    //   notes: ['', Validators.maxLength(300)],
-    //   });
-  // }
 
    onSubmit() {
     if (this.trainingForm.valid) {
@@ -61,7 +47,7 @@ export class TrainingForm  {
 
       this.trainingService.createTrainingSession(request).subscribe({
         next: (res) => console.log('Saved successfully!', res),
-        error: (err) => console.error('Error saving training session:', err)
+        // error: (err) => console.error('Error saving training session:', err)
       });
     }
   }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.TrainingSessions.Commands
+namespace Application.TrainingSessions.Commands.Create
 {
     public class CreateTrainingSessionValidator : AbstractValidator<CreateTrainingSessionCommand>
     {
@@ -9,7 +9,9 @@ namespace Application.TrainingSessions.Commands
             RuleFor(x => x.TrainingType).IsInEnum();
             RuleFor(x => x.Duration).GreaterThan(0).WithMessage("Duration should be greater than zero");
             RuleFor(x => x.IntensityLevel).InclusiveBetween(1, 10).WithMessage("Intesity Level should be in range 1-10");
-            RuleFor(x => x.TirednessLevel).InclusiveBetween(1, 10).WithMessage("Tiredness Level should be in range 1-10"); ;
+            RuleFor(x => x.TirednessLevel).InclusiveBetween(1, 10).WithMessage("Tiredness Level should be in range 1-10");
+            RuleFor(x => x.Notes).MaximumLength(300).WithMessage("Notes should not exceed 300 characters");
+            RuleFor(x => x.Date).LessThanOrEqualTo(DateTime.Now).WithMessage("Date cannot be in the future");
         }
     }
 }

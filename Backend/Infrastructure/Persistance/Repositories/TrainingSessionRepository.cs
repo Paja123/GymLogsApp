@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using Infrastructure.Persistance.Context;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Infrastructure.Persistance.Repositories
@@ -19,6 +20,15 @@ namespace Infrastructure.Persistance.Repositories
             await _context.SaveChangesAsync();
 
             return session.Id;
+        }
+
+        public async Task<bool> OverlapingSessionExists(string userId, DateTime date, int duration)
+        {
+            userId = "11111111-1111-1111-1111-111111111111"; //TODO: Get actual userId from jwt
+            return await _context.TrainingSessions.AnyAsync(s =>
+                s.UserId == userId &&
+                s.Date < date.AddMinutes(duration) &&
+                s.Date.AddMinutes(s.Duration) > date);
         }
     }
 }

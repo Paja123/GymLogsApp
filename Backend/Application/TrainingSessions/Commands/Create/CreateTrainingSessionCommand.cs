@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using MediatR;
 using System;
-namespace Application.TrainingSessions.Commands
+namespace Application.TrainingSessions.Commands.Create
 {
     public record CreateTrainingSessionCommand(
         string UserId,

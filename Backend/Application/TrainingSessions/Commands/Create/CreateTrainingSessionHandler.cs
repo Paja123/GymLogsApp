@@ -1,9 +1,10 @@
 ﻿using Application.Common.Interfaces;
+using Application.Exceptions;
 using Domain.Entities;
 using MediatR;
 
 
-namespace Application.TrainingSessions.Commands
+namespace Application.TrainingSessions.Commands.Create
 {
     public class CreateTrainingSessionHandler : IRequestHandler<CreateTrainingSessionCommand, Guid>
     {
@@ -14,6 +15,12 @@ namespace Application.TrainingSessions.Commands
         }
         public async Task<Guid> Handle(CreateTrainingSessionCommand request, CancellationToken cancellationToken)
         {
+            if(await OverlapingSessionExists(request.UserId, request.Date, request.Duration))
+            {
+                throw new TrainingSessionOverlapException();
+               
+            }
+
             var session = new TrainingSession
             {
                 TrainingType = request.TrainingType,
@@ -25,6 +32,11 @@ namespace Application.TrainingSessions.Commands
                 Notes = request.Notes
             };
             return await _trainingSessionsRepository.AddAsync(session);
+        }
+
+        public async Task<bool> OverlapingSessionExists(string userId, DateTime date, int duration)
+        {
+            return await _trainingSessionsRepository.OverlapingSessionExists(userId, date, duration);
         }
     }
 }

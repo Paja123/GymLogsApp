@@ -1,4 +1,4 @@
-﻿using Application.TrainingSessions.Commands;
+﻿using Application.TrainingSessions.Commands.Create;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_API.Controllers
