@@ -18,7 +18,7 @@ namespace Application.TrainingSessions.Commands
             {
                 TrainingType = request.TrainingType,
                 Duration = request.Duration,
-                CaloriesBurned = request.CalloriesBurned,
+                CaloriesBurned = request.CaloriesBurned,
                 IntensityLevel = request.IntensityLevel,
                 TirednessLevel = request.TirednessLevel,
                 Date = request.Date,

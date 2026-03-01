@@ -1,0 +1,60 @@
+<div class="form-container">
+  <h2>Log New Training</h2>
+  
+  <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Type:</label>
+      <select formControlName="trainingType">
+        @for(type of trainingTypes; track $index){
+            <option [value]= "$index">{{type}}</option>
+        }
+      </select>
+    </div>
+
+    <div>
+      <label>Date:</label>
+      <input type="datetime-local" formControlName="date">
+      <small *ngIf="f.date.invalid && f.date.touched">
+        Date is required.
+      </small>
+    </div>
+
+    <div>
+      <label>Duration (min):</label>
+      <input type="number" formControlName="duration">
+      <small *ngIf="f.duration.invalid && f.duration.touched">
+        Duration is required.
+      </small>
+    </div>
+    
+    <div>
+      <label>Calories burned:</label>
+      <input type="number" formControlName="caloriesBurned">
+      <small *ngIf="f.caloriesBurned.invalid && f.caloriesBurned.touched">
+        Calories burned is required.
+      </small>
+    </div>
+
+    <div>
+      <label>Intensity (1-10):</label>
+      <input type="range" min="1" max="10" formControlName="intensityLevel">
+      <span>{{ f.intensityLevel.value }}</span>
+    </div>
+
+    <div>
+      <label>Fatigue (1-10):</label>
+      <input type="range" min="1" max="10" formControlName="tirednessLevel">
+      <span>{{ f.tirednessLevel.value }}</span>
+    </div>
+
+    <div>
+      <label>Notes:</label>
+      <textarea formControlName="notes" rows="4" placeholder="How did the training go?"></textarea>
+      <small *ngIf="f.notes.errors?.['maxlength'] && f.notes.touched">
+        Notes cannot exceed 300 characters.
+      </small>
+    </div>
+
+    <button type="submit" [disabled]="trainingForm.invalid">Save Training</button>
+  </form>
+</div>

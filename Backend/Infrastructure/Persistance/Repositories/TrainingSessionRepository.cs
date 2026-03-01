@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Entities;
 using Infrastructure.Persistance.Context;
+using System.Diagnostics;
 
 namespace Infrastructure.Persistance.Repositories
 {
@@ -16,6 +17,7 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context.TrainingSessions.Add(session);
             await _context.SaveChangesAsync();
+
             return session.Id;
         }
     }
