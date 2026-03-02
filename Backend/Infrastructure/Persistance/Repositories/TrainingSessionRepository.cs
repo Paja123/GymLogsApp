@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.TrainingSessions.Queries.GetAll;
 using Domain.Entities;
 using Infrastructure.Persistance.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,13 @@ namespace Infrastructure.Persistance.Repositories
         {
             _context = context;
         }
+        public async Task<IReadOnlyList<TrainingSession>> GetAllAsync(string userId)
+        {
+            return await _context.TrainingSessions
+                .Where(ts => ts.UserId== userId)
+                .ToListAsync();
+        }
+
         public async Task<Guid> AddAsync(TrainingSession session)
         {
             _context.TrainingSessions.Add(session);
@@ -29,6 +37,11 @@ namespace Infrastructure.Persistance.Repositories
                 s.UserId == userId &&
                 s.Date < date.AddMinutes(duration) &&
                 s.Date.AddMinutes(s.Duration) > date);
+        }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            return await _context.TrainingSessions.Where(ts => ts.Id == id).ExecuteDeleteAsync() > 0;
         }
     }
 }
