@@ -32,7 +32,6 @@ namespace Infrastructure.Persistance.Repositories
 
         public async Task<bool> OverlapingSessionExists(string userId, DateTime date, int duration)
         {
-            userId = "11111111-1111-1111-1111-111111111111"; //TODO: Get actual userId from jwt
             return await _context.TrainingSessions.AnyAsync(s =>
                 s.UserId == userId &&
                 s.Date < date.AddMinutes(duration) &&
@@ -44,10 +43,10 @@ namespace Infrastructure.Persistance.Repositories
             return await _context.TrainingSessions.Where(ts => ts.Id == id).ExecuteDeleteAsync() > 0;
         }
 
-        public async Task<List<TrainingSession>> GetByMonthAsync(int month, int year)
+        public async Task<List<TrainingSession>> GetByMonthAsync(int month, int year, string userId)
         {
             return await _context.TrainingSessions
-                .Where(ts => ts.Date.Month == month && ts.Date.Year == year)
+                .Where(ts => ts.UserId == userId && ts.Date.Month == month && ts.Date.Year == year)
                 .ToListAsync();
         }
     }

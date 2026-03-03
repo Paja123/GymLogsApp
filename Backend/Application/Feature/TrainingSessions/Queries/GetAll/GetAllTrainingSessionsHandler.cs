@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Base;
+using Application.Common.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,21 +9,16 @@ using System.Threading.Tasks;
 
 namespace Application.Feature.TrainingSessions.Queries.GetAll
 {
-    public class GetAllTrainingSessionsHandler : IRequestHandler<GetAllTrainingSessionsQuery, List<TrainingSessionResponseDto>>
+    public class GetAllTrainingSessionsHandler : AuthorizedHandler<GetAllTrainingSessionsQuery, List<TrainingSessionResponseDto>>
     {
         private readonly ITrainingSessionRepository _trainingSessionRepository;
-
-        public GetAllTrainingSessionsHandler(ITrainingSessionRepository trainingSessionRepository)
+        public GetAllTrainingSessionsHandler(ITrainingSessionRepository trainingSessionRepository, ICurrentUserService currentUserService) : base(currentUserService)
         {
             _trainingSessionRepository = trainingSessionRepository;
         }
-
-        public async Task<List<TrainingSessionResponseDto>> Handle(GetAllTrainingSessionsQuery request, CancellationToken cancellationToken)
+        public override async Task<List<TrainingSessionResponseDto>> Handle(GetAllTrainingSessionsQuery request, CancellationToken cancellationToken)
         {
-            string userId = "11111111-1111-1111-1111-111111111111"; // TODO: Get user ID from the context
-                            
-
-            var sessions = await _trainingSessionRepository.GetAllAsync(userId);
+            var sessions = await _trainingSessionRepository.GetAllAsync(getUserId());
             var dtos = sessions.Select(ts => new TrainingSessionResponseDto(
                 ts.Id.ToString(),
                 ts.TrainingType.ToString(), 
@@ -36,5 +32,6 @@ namespace Application.Feature.TrainingSessions.Queries.GetAll
 
             return dtos;
         }
+
     }
 }

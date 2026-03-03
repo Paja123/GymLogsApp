@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Base;
+using Application.Common.Interfaces;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,19 +10,16 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Application.Feature.TrainingSessions.Queries.GetMonthlyReport
 {
-    public class GetMonthlyReportHandler : IRequestHandler<GetMonthlyReportQuery, List<WeeklyReportDto>>
+    public class GetMonthlyReportHandler : AuthorizedHandler<GetMonthlyReportQuery, List<WeeklyReportDto>>
     {
         private readonly ITrainingSessionRepository _trainingSessionRepository;
-        public GetMonthlyReportHandler(ITrainingSessionRepository trainingSessionRepository)
+        public GetMonthlyReportHandler(ITrainingSessionRepository trainingSessionRepository, ICurrentUserService currentUserService) : base(currentUserService)
         {
             _trainingSessionRepository = trainingSessionRepository;
         }
-        public async Task<List<WeeklyReportDto>> Handle(GetMonthlyReportQuery request, CancellationToken cancellationToken)
+        public override async Task<List<WeeklyReportDto>> Handle(GetMonthlyReportQuery request, CancellationToken cancellationToken)
         {
-            var monthSessions = await _trainingSessionRepository.GetByMonthAsync(request.Month, request.Year);
-
-            //var firstDayOfMonth = new DateTime(year, month, 1);
-            //var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            var monthSessions = await _trainingSessionRepository.GetByMonthAsync(request.Month, request.Year, getUserId());
 
             var result = monthSessions
                 .GroupBy(ts => (ts.Date.Day - 1) / 7 + 1)
@@ -38,5 +36,6 @@ namespace Application.Feature.TrainingSessions.Queries.GetMonthlyReport
 
             return result;
         }
+
     }
 }

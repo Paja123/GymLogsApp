@@ -4,7 +4,6 @@ using System;
 namespace Application.Feature.TrainingSessions.Commands.Create
 {
     public record CreateTrainingSessionCommand(
-        string UserId,
         TrainingType TrainingType,
         int Duration,
         int? CaloriesBurned,

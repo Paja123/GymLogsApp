@@ -10,6 +10,9 @@ using System;
 using System.Text;
 using System.Text.Json.Serialization;
 using Web_API.Handlers;
+using Web_API.Services;
+using Application.Common.Interfaces;
+using Web_API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -73,6 +76,7 @@ builder.Services.AddControllers()
     });
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddOpenApi();
 

@@ -2,7 +2,6 @@ import { TrainingType } from "./training-type.enum";
 
 export interface TrainingSession {
     id?: string;
-    userId: string;
     trainingType: string;
     duration: number;
     caloriesBurned?: number;

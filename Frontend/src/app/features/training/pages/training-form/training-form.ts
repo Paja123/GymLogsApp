@@ -42,12 +42,10 @@ export class TrainingForm  {
       console.log('Form Data:', this.trainingForm.value);
         const request: TrainingSession = {
     ...this.trainingForm.getRawValue(),
-    userId: 'userId from jwt later, now still works from model with default value'
   };
 
       this.trainingService.createTrainingSession(request).subscribe({
         next: (res) => console.log('Saved successfully!', res),
-        // error: (err) => console.error('Error saving training session:', err)
       });
     }
   }

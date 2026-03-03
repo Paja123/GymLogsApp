@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Base;
+using Application.Common.Interfaces;
 using Application.Exceptions;
 using Domain.Entities;
 using MediatR;
@@ -6,19 +7,18 @@ using MediatR;
 
 namespace Application.Feature.TrainingSessions.Commands.Create
 {
-    public class CreateTrainingSessionHandler : IRequestHandler<CreateTrainingSessionCommand, Guid>
+    public class CreateTrainingSessionHandler : AuthorizedHandler<CreateTrainingSessionCommand, Guid>
     {
         private readonly ITrainingSessionRepository _trainingSessionsRepository;
-        public CreateTrainingSessionHandler(ITrainingSessionRepository trainingSessionsRepository)
+        public CreateTrainingSessionHandler(ITrainingSessionRepository trainingSessionsRepository, ICurrentUserService currentUserService) : base(currentUserService)                        
         {
             _trainingSessionsRepository = trainingSessionsRepository;
         }
-        public async Task<Guid> Handle(CreateTrainingSessionCommand request, CancellationToken cancellationToken)
+        public override async Task<Guid> Handle(CreateTrainingSessionCommand request, CancellationToken cancellationToken)
         {
-            if(await OverlapingSessionExists(request.UserId, request.Date, request.Duration))
+            if(await OverlapingSessionExists(getUserId(), request.Date, request.Duration))
             {
                 throw new TrainingSessionOverlapException();
-               
             }
 
             var session = new TrainingSession
@@ -31,6 +31,7 @@ namespace Application.Feature.TrainingSessions.Commands.Create
                 Date = request.Date,
                 Notes = request.Notes
             };
+
             return await _trainingSessionsRepository.AddAsync(session);
         }
 
