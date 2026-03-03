@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces;
+using Application.TrainingSessions.Queries.GetWeeklyReport;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Application.TrainingSessions.Queries.GetWeeklyReport
+namespace Application.TrainingSessions.Queries.GetMonthlyReport
 {
     public class GetMonthlyReportHandler : IRequestHandler<GetMonthlyReportQuery, List<WeeklyReportDto>>
     {

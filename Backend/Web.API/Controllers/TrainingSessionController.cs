@@ -1,6 +1,7 @@
 ﻿using Application.TrainingSessions.Commands.Create;
 using Application.TrainingSessions.Commands.Delete;
 using Application.TrainingSessions.Queries.GetAll;
+using Application.TrainingSessions.Queries.GetMonthlyReport;
 using Application.TrainingSessions.Queries.GetWeeklyReport;
 using Microsoft.AspNetCore.Mvc;
 

@@ -90,7 +90,6 @@ export class MonthlyReportComponent {
       //Now we make sure it displays all the 5 weeks, even if some are empty
       const weeksMap = new Map<number, WeeklyReportDto>();
       data.forEach(w => weeksMap.set(w.weekNumber, w));
-      console.log('Fetched report data:', data);
       const normalized : WeeklyReportDto[] = [];
       for(let i = 1; i<=5; i++){
         const w = weeksMap.get(i);
