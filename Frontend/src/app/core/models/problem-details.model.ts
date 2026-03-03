@@ -5,5 +5,5 @@ export interface ProblemDetails {
   detail: string;
   instance?: string;
   traceId?: string;
-  errors?: { [key: string]: string[] }; 
+  errors?: { [key: string]: string[] };
 }

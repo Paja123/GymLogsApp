@@ -1,12 +1,12 @@
 <div class="form-container">
-  <h2>Log New Training</h2>
-  
+  <h2>Log New Training Session</h2>
+
   <form [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
     <div>
       <label>Type:</label>
       <select formControlName="trainingType">
         @for(type of trainingTypes; track $index){
-            <option [value]= "$index">{{type}}</option>
+        <option [value]="$index">{{type}}</option>
         }
       </select>
     </div>
@@ -26,7 +26,7 @@
         Duration is required.
       </small>
     </div>
-    
+
     <div>
       <label>Calories burned:</label>
       <input type="number" formControlName="caloriesBurned">
@@ -48,7 +48,7 @@
     </div>
 
     <div>
-      <label>Notes:</label>
+      <label>Notes: (max 300 characters)</label>
       <textarea formControlName="notes" rows="4" placeholder="How did the training go?"></textarea>
       <small *ngIf="f.notes.errors?.['maxlength'] && f.notes.touched">
         Notes cannot exceed 300 characters.
