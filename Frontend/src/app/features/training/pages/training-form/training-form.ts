@@ -19,10 +19,10 @@ export class TrainingForm  {
 
   trainingForm = this.fb.nonNullable.group({
     trainingType: [TrainingType.Cardio, Validators.required],
-    duration: [0, [Validators.required, Validators.min(1)]],
+    duration: [0, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]],
     intensityLevel: [5, [Validators.min(1), Validators.max(10)]],
     tirednessLevel: [5, [Validators.min(1), Validators.max(10)]],
-    caloriesBurned: [0, Validators.min(0)],
+    caloriesBurned: [0, [Validators.min(0), Validators.pattern("^[0-9]*$")]],
     date: [this.getNowForInput(), Validators.required],
     notes: ['', Validators.maxLength(300)],
   });

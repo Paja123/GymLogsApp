@@ -17,6 +17,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         switch (err.status) {
         case 400:
             console.error('Validaton error from backend:', errorData.errors);
+							alert(`Data validation error: ${errorData.detail}`);
+
             break;
         case 401:
             // TODO: istekao jwt token, preusmeri na login

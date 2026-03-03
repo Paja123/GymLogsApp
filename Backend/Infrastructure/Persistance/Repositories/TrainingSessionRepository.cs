@@ -43,5 +43,12 @@ namespace Infrastructure.Persistance.Repositories
         {
             return await _context.TrainingSessions.Where(ts => ts.Id == id).ExecuteDeleteAsync() > 0;
         }
+
+        public async Task<List<TrainingSession>> GetByMonthAsync(int month, int year)
+        {
+            return await _context.TrainingSessions
+                .Where(ts => ts.Date.Month == month && ts.Date.Year == year)
+                .ToListAsync();
+        }
     }
 }

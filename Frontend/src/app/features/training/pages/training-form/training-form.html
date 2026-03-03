@@ -21,9 +21,9 @@
 
     <div>
       <label>Duration (min):</label>
-      <input type="number" formControlName="duration">
+      <input type="number" step="1" min="1" formControlName="duration">
       <small *ngIf="f.duration.invalid && f.duration.touched">
-        Duration is required.
+        Duration is invalid.
       </small>
     </div>
 
@@ -31,7 +31,7 @@
       <label>Calories burned:</label>
       <input type="number" formControlName="caloriesBurned">
       <small *ngIf="f.caloriesBurned.invalid && f.caloriesBurned.touched">
-        Calories burned is required.
+        Calories burned input is invalid.
       </small>
     </div>
 

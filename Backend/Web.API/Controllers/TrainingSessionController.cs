@@ -1,6 +1,7 @@
 ﻿using Application.TrainingSessions.Commands.Create;
 using Application.TrainingSessions.Commands.Delete;
 using Application.TrainingSessions.Queries.GetAll;
+using Application.TrainingSessions.Queries.GetWeeklyReport;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web_API.Controllers
@@ -24,6 +25,12 @@ namespace Web_API.Controllers
         public async Task<bool> Delete(Guid id)
         {
             return await Mediator.Send(new DeleteTrainingSessionCommand(id));
+        }
+
+        [HttpGet("{year}/{month}")]
+        public async Task<List<WeeklyReportDto>> GetWeeklyReport(int year, int month)
+        {
+            return await Mediator.Send(new GetWeeklyReportQuery(month, year));
         }
     }
 }
