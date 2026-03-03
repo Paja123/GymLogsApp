@@ -3,6 +3,7 @@ import { TrainingSession } from '../../../shared/models/training-session.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { TrainingSessionResponseDto } from '../../../shared/models/training-session-response-dto';
+import { WeeklyReportDto } from '../../../shared/models/weekly-report.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,5 +22,8 @@ export class TrainingService {
   }
   delete(id: string): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);
+  }
+  getMonthlyReport(year: number, month: number): Observable<WeeklyReportDto[]> {
+    return this.http.get<WeeklyReportDto[]>(`${this.apiUrl}/${year}/${month}`);
   }
 }

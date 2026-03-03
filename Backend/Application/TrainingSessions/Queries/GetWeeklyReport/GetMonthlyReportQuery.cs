@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.TrainingSessions.Queries.GetWeeklyReport
 {
-    public record GetWeeklyReportQuery(int Month, int Year): IRequest<List<WeeklyReportDto>>
+    public record GetMonthlyReportQuery(int Month, int Year): IRequest<List<WeeklyReportDto>>
     {
     }
 }

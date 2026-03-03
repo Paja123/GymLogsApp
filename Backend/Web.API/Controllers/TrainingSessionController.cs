@@ -28,9 +28,9 @@ namespace Web_API.Controllers
         }
 
         [HttpGet("{year}/{month}")]
-        public async Task<List<WeeklyReportDto>> GetWeeklyReport(int year, int month)
+        public async Task<List<WeeklyReportDto>> GetMonthlyReport(int year, int month)
         {
-            return await Mediator.Send(new GetWeeklyReportQuery(month, year));
+            return await Mediator.Send(new GetMonthlyReportQuery(month, year));
         }
     }
 }

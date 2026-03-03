@@ -1,0 +1,89 @@
+<div class="page">
+  <header class="page-header">
+    <h1 class="title">Monthly Training Report</h1>
+    <p class="subtitle">Pick a month and year to view weekly summaries</p>
+  </header>
+
+  <section class="controls">
+    <div class="picker">
+      <label class="label">Month</label>
+      <select [ngModel]="selectedMonth()"  (ngModelChange)="onMonthChange($event)">
+        <option *ngFor="let m of months" [value]="m.value">{{ m.label }}</option>
+      </select>
+    </div>
+
+    <div class="picker">
+      <label class="label">Year</label>
+      <select [ngModel]="selectedYear()" (ngModelChange)="onYearChange($event)">
+        <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button class="btn" (click)="fetchReport()" [disabled]="loading() || isFuture()">Get report</button>
+      <button class="btn ghost" (click)="selectedMonth.set(now.getMonth()+1); selectedYear.set(currentyear); fetchReport()">This month</button>
+    </div>
+  </section>
+
+  <div *ngIf="isFuture()" class="error">Selected month is in the future. Please choose a valid month.</div>
+  <div *ngIf="error()" class="error">{{ error() }}</div>
+
+  <main>
+    <div *ngIf="loading()" class="placeholder">Loading report…</div>
+
+    <section *ngIf="!loading() && report().length" class="report">
+      <div class="summary">
+        <div class="summary-item">
+          <div class="label">Total Duration</div>
+          <div class="value">{{ formatDuration(totals().totalDuration) }}</div>
+        </div>
+        <div class="summary-item">
+          <div class="label">Sessions</div>
+          <div class="value">{{ totals().totalTrainingSessionsCount }}</div>
+        </div>
+        <div class="summary-item">
+          <div class="label">Avg Intensity</div>
+          <div class="value">{{ totals().avgIntesity }}</div>
+        </div>
+        <div class="summary-item">
+          <div class="label">Avg Tiredness</div>
+          <div class="value">{{ totals().avgTiredness }}</div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="week-card" *ngFor="let w of report()">
+          <div class="week-top">
+            <div class="week">Week {{ w.weekNumber }}</div>
+            <div class="count">{{ w.trainingSessionsCount }} sessions</div>
+          </div>
+
+          <div class="week-body">
+            <div class="meta">
+              <div class="meta-label">Total</div>
+              <div class="meta-value">{{ formatDuration(w.totalDuration) }}</div>
+            </div>
+
+            <div class="bar">
+              <div class="bar-label">Intensity</div>
+              <div class="bar-track">
+                <div class="bar-fill" [style.width.%]="percentFromAvg(w.averageIntensity)"></div>
+              </div>
+              <div class="bar-value">{{ w.averageIntensity | number:'1.1-2' }}/10</div>
+            </div>
+
+            <div class="bar">
+              <div class="bar-label">Tiredness</div>
+              <div class="bar-track">
+                <div class="bar-fill tired" [style.width.%]="percentFromAvg(w.averageTiredness)"></div>
+              </div>
+              <div class="bar-value">{{ w.averageTiredness | number:'1.1-2' }}/10</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div *ngIf="!loading() && !report().length" class="empty">No data for selected month.</div>
+  </main>
+</div>
