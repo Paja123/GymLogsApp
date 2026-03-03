@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.TrainingSessions.Commands.Delete
+namespace Application.Feature.TrainingSessions.Commands.Delete
 {
     public class DeleteTrainingSessionHandler : IRequestHandler<DeleteTrainingSessionCommand, bool>
     {

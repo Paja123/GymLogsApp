@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.TrainingSessions.Queries.GetWeeklyReport
+namespace Application.Feature.TrainingSessions.Queries.GetMonthlyReport
 {
     public record WeeklyReportDto(
         int WeekNumber,

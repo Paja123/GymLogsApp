@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.TrainingSessions.Queries.GetAll
+namespace Application.Feature.TrainingSessions.Queries.GetAll
 {
     public class GetAllTrainingSessionsHandler : IRequestHandler<GetAllTrainingSessionsQuery, List<TrainingSessionResponseDto>>
     {

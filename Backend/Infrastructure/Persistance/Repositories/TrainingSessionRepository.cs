@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Application.TrainingSessions.Queries.GetAll;
+using Application.Feature.TrainingSessions.Queries.GetAll;
 using Domain.Entities;
 using Infrastructure.Persistance.Context;
 using Microsoft.EntityFrameworkCore;

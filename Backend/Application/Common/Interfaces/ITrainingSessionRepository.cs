@@ -1,4 +1,4 @@
-﻿using Application.TrainingSessions.Queries.GetAll;
+﻿using Application.Feature.TrainingSessions.Queries.GetAll;
 using Domain.Entities;
 
 namespace Application.Common.Interfaces

@@ -4,7 +4,7 @@ using Domain.Entities;
 using MediatR;
 
 
-namespace Application.TrainingSessions.Commands.Create
+namespace Application.Feature.TrainingSessions.Commands.Create
 {
     public class CreateTrainingSessionHandler : IRequestHandler<CreateTrainingSessionCommand, Guid>
     {
