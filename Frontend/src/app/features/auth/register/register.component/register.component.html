@@ -1,0 +1,63 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h2 class="auth-title">Create account</h2>
+    <p class="auth-sub">Start logging your training</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="row">
+        <label class="field half">
+          <div class="field-label">First name</div>
+          <input formControlName="firstName" placeholder="John" />
+          <div class="field-error" *ngIf="form.controls.firstName.touched && form.controls.firstName.invalid">Required</div>
+        </label>
+
+        <label class="field half">
+          <div class="field-label">Last name</div>
+          <input formControlName="lastName" placeholder="Doe" />
+          <div class="field-error" *ngIf="form.controls.lastName.touched && form.controls.lastName.invalid">Required</div>
+        </label>
+      </div>
+
+      <label class="field">
+        <div class="field-label">Username</div>
+        <input formControlName="userName" placeholder="john.doe" />
+        <div class="field-error" *ngIf="form.controls.userName.touched && form.controls.userName.invalid">
+          <span *ngIf="form.controls.userName.hasError('required')">Required</span>
+          <span *ngIf="form.controls.userName.hasError('minlength')">Min 3 chars</span>
+        </div>
+      </label>
+
+      <label class="field">
+        <div class="field-label">Email</div>
+        <input type="email" formControlName="email" placeholder="you@example.com" />
+        <div class="field-error" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+          <span *ngIf="form.controls.email.hasError('required')">Required</span>
+          <span *ngIf="form.controls.email.hasError('email')">Invalid email</span>
+        </div>
+      </label>
+
+      <label class="field">
+        <div class="field-label">Password</div>
+        <input type="password" formControlName="password" placeholder="Password1!" />
+        <div class="field-error" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+          <span *ngIf="form.controls.password.hasError('required')">Required</span>
+          <span *ngIf="form.controls.password.hasError('minlength')">Min 6 chars</span>
+          <!-- <span *ngIf="form.controls.password.hasError('pattern')">Password must contain at least one number, one capital letter and one special character</span> -->
+          <span *ngIf="form.controls.password.hasError('missingUpper')">Add at least one uppercase letter. </span>
+          <span *ngIf="form.controls.password.hasError('missingDigit')">Add at least one number. </span> 
+          <span *ngIf="form.controls.password.hasError('missingSpecial')">Add at least one special character. </span> 
+        </div>
+      </label>
+
+      <div class="actions">
+        <button class="btn" type="submit" [disabled]="loading() || form.invalid"   [attr.aria-disabled]="form.invalid || loading()">
+          <span *ngIf="!loading()">Create account</span>
+          <span *ngIf="loading()">Creating…</span>
+        </button>
+        <a routerLink="/login" class="link">Already have an account?</a>
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+    </form>
+  </div>
+</div>

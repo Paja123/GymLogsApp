@@ -14,7 +14,7 @@ namespace Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [MaxLength(36)]
-        public string UserId { get; set; } = "11111111-1111-1111-1111-111111111111"; //TODO: Get actual userId from jwt
+        public string UserId { get; set; } 
         [Required]
         public TrainingType TrainingType { get; set; }
         [Required]

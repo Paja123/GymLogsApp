@@ -16,9 +16,9 @@ namespace Application.Feature.Auth.Commands.Register
         {
             _authService = authService;
         }
-        public Task<AuthResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            return _authService.RegisterAsync(request.FirstName, request.LastName, request.Username, request.Email, request.Password);
+            return await _authService.RegisterAsync(request.FirstName, request.LastName, request.UserName, request.Email, request.Password);
 
         }
     }

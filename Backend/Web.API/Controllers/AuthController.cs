@@ -2,6 +2,7 @@
 using Application.Feature.Auth.Commands.Register;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Web_API.Controllers
 {
@@ -30,7 +31,17 @@ namespace Web_API.Controllers
             return NoContent();
         }
         [HttpGet("me")]
-        [Authorize]
-        public IActionResult Me() => Ok(new { User.Identity!.Name });
+        [AllowAnonymous] 
+        public IActionResult Me()
+        {
+            if (!User.Identity?.IsAuthenticated ?? true)
+                return Unauthorized();
+
+            return Ok(new
+            {
+                Email = User.FindFirstValue(ClaimTypes.Email),
+                Username = User.Identity!.Name
+            });
+        }
     }
 }

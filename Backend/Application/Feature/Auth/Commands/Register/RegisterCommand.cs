@@ -11,7 +11,7 @@ namespace Application.Feature.Auth.Commands.Register
     public record RegisterCommand(
         string FirstName,
         string LastName,
-        string Username,
+        string UserName,
         string Email,
         string Password) : IRequest<AuthResponse>
     {
