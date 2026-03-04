@@ -12,7 +12,7 @@
 </main> -->
 
 <div class="app-shell">
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="showNavbar"></app-navbar>
   <main class="main">
     <router-outlet></router-outlet> 
   </main>

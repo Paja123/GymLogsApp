@@ -34,7 +34,6 @@ export class AuthService {
       .pipe(tap(() => this.currentUserSignal.set(null)));
   }
 
-  
   fetchCurrentUser() {
     return this.http.get<AuthResponse>(`${this.apiUrl}/me`)
       .pipe(

@@ -41,9 +41,64 @@
   border-bottom: 2px solid var(--primary);
 }
 
-/* responsive */
 @media (max-width: 720px) {
   .navbar { padding: 0.75rem 1rem; }
   .nav-links { gap: 0.75rem; font-size: 0.95rem; }
   .brand h1 { font-size: 1.05rem; }
+}
+
+/* Ghost-style navbar button */
+.btn-ghost {
+  background: transparent;
+  color: var(--primary, #2563eb);
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 120ms ease, border-color 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-ghost:not(:disabled):hover {
+  background: rgba(37, 99, 235, 0.06); 
+  transform: translateY(-1px);
+  border-color: rgba(37, 99, 235, 0.12);
+}
+
+.btn-ghost:not(:disabled):active {
+  transform: translateY(0);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.btn-ghost:disabled,
+.btn-ghost[aria-disabled='true'] {
+  background: transparent;
+  color: #94a3b8;            
+  border-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.9;
+  transform: none;
+}
+
+.btn-ghost:focus {
+  outline: 3px solid rgba(37, 99, 235, 0.16);
+  outline-offset: 2px;
+}
+
+.btn-ghost--icon {
+  padding: 6px;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
+}
+
+.btn-ghost, .btn-ghost * {
+  font-family: inherit;
+  line-height: 1;
 }
