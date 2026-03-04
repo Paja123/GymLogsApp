@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Application.Common.Interfaces
     public interface ITokenService
     {
         string CreateToken(string userId, string email, string username);
+        RefreshToken CreateRefreshToken();
     }
 }

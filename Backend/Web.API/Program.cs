@@ -46,6 +46,7 @@ builder.Services.AddAuthentication(opt =>
     };
     opt.TokenValidationParameters = new TokenValidationParameters
     {
+        ClockSkew = TimeSpan.Zero,
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = true,

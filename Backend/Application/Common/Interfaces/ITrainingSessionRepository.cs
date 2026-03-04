@@ -5,10 +5,10 @@ namespace Application.Common.Interfaces
 {
     public interface ITrainingSessionRepository
     {
-        public Task<IReadOnlyList<TrainingSession>> GetAllAsync(string userId);
-        public Task<Guid> AddAsync(TrainingSession session);
-        public Task<bool> OverlapingSessionExists(string userId, DateTime date, int duration);
-        public Task<bool> DeleteAsync(Guid id);
-        public Task<List<TrainingSession>> GetByMonthAsync(int month, int year, string userId);
+        Task<IReadOnlyList<TrainingSession>> GetAllAsync(string userId);
+        Task<Guid> AddAsync(TrainingSession session);
+        Task<bool> OverlapingSessionExists(string userId, DateTime date, int duration);
+        Task<bool> DeleteAsync(Guid id);
+        Task<List<TrainingSession>> GetByMonthAsync(int month, int year, string userId);
     }
 }

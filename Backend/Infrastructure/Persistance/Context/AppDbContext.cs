@@ -14,6 +14,11 @@ namespace Infrastructure.Persistance.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.RefreshTokens)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

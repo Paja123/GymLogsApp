@@ -5,8 +5,8 @@
    </div>
 
     <ul class="nav-links" role="menubar" aria-label="Primary">
-      <li role="none"><a routerLink="/create" role="menuitem">Add training session</a></li>
-      <li role="none"><a routerLink="/all-trainings" role="menuitem">All training sessions</a></li>
+      <li role="none"><a routerLink="/create" role="menuitem">Add Training Session</a></li>
+      <li role="none"><a routerLink="/all-trainings" role="menuitem">All Training Sessions</a></li>
       <li role="none"><a routerLink="/monthly-report" role="menuitem">Monthly Report</a></li>
       <button class="btn-ghost" (click)="logout()" [disabled]="loading"> 
         <span *ngIf="!loading">Logout</span> <span *ngIf="loading">Logging out…</span> 

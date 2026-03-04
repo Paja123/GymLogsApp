@@ -2,6 +2,12 @@
   <div class="auth-card">
     <h2 class="auth-title">Sign in</h2>
     <p class="auth-sub">Access your training sessions</p>
+    
+    @if (sessionExpired) {
+      <div class="session-expired">
+        Your session has expired. Please log in again.
+      </div>
+    }
 
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
       <label class="field">

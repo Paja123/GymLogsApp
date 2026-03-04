@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angula
 import { TrainingType } from '../../../../shared/models/training-type.enum';
 import { TrainingService } from '../../services/training.service';
 import { TrainingSession } from '../../../../shared/models/training-session.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-training-form',
@@ -13,6 +14,7 @@ import { TrainingSession } from '../../../../shared/models/training-session.mode
 })
 export class TrainingForm  {
   private fb = inject(FormBuilder);
+  private router = inject(Router);
   private trainingService = inject(TrainingService);
 
   trainingTypes = Object.values(TrainingType).filter(value => typeof value === 'string') as string[];
@@ -45,7 +47,7 @@ export class TrainingForm  {
   };
 
       this.trainingService.createTrainingSession(request).subscribe({
-        next: (res) => console.log('Saved successfully!', res),
+        next: () => this.router.navigate(["/all-trainings"])
       });
     }
   }

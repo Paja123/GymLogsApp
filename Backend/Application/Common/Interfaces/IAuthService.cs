@@ -11,5 +11,7 @@ namespace Application.Common.Interfaces
     {
         Task<AuthResponse> RegisterAsync(string FirstName, string LastName, string Username, string email, string password);
         Task<AuthResponse> LoginAsync(string email, string password);
+        Task<AuthResponse> RefreshAsync(string refreshToken);
+        Task RevokeAsync(string refreshToken);
     }
 }

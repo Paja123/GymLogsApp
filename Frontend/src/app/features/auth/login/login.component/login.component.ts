@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { LoginRequest } from '../../models/auth.models';
 
 @Component({
@@ -16,6 +16,9 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute)
+
+  sessionExpired = this.route.snapshot.queryParams['reason'] === 'session-expired';
 
   loading = signal(false);
   error = signal<string | null>(null);
