@@ -41,7 +41,7 @@
         <input type="password" formControlName="password" placeholder="Password1!" />
         <div class="field-error" *ngIf="form.controls.password.touched && form.controls.password.invalid">
           <span *ngIf="form.controls.password.hasError('required')">Required</span>
-          <span *ngIf="form.controls.password.hasError('minlength')">Min 6 chars</span>
+          <span *ngIf="form.controls.password.hasError('minlength')">Min 6 characters. </span>
           <!-- <span *ngIf="form.controls.password.hasError('pattern')">Password must contain at least one number, one capital letter and one special character</span> -->
           <span *ngIf="form.controls.password.hasError('missingUpper')">Add at least one uppercase letter. </span>
           <span *ngIf="form.controls.password.hasError('missingDigit')">Add at least one number. </span> 

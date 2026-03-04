@@ -22,18 +22,29 @@ export class RegisterComponent {
   
    // Custom validator: trims input and returns granular errors 
   private static passwordComplexity(control: AbstractControl): ValidationErrors | null {
-    const raw = control.value; 
-    if (raw == null || raw === '') return null;
-    const value = String(raw).trim(); 
-    const errors: ValidationErrors = {}; 
-    if (value.length < 6) {
-      errors['minlength'] = { requiredLength: 6, actualLength: value.length }; 
-    }
-    if (!/[A-Z]/.test(value)) { errors['missingUpper'] = true; } 
-    if (!/\d/.test(value)) { errors['missingDigit'] = true; }
-    if (!/[\W_]/.test(value)) { errors['missingSpecial'] = true; } 
+    // const raw = control.value; 
+    // if (raw == null || raw === '') return null;
+    // const value = String(raw).trim(); 
+    // const errors: ValidationErrors = {}; 
+    // if (value.length < 6) {
+    //   errors['minlength'] = { requiredLength: 6, actualLength: value.length }; 
+    // }
+    // if (!/[A-Z]/.test(value)) { errors['missingUpper'] = true; } 
+    // if (!/\d/.test(value)) { errors['missingDigit'] = true; }
+    // if (!/[\W_]/.test(value)) { errors['missingSpecial'] = true; } 
 
-    return Object.keys(errors).length ? errors : null; 
+    // return Object.keys(errors).length ? errors : null; 
+    const value = control.value;
+  if (!value) return null;
+
+  const errors: ValidationErrors = {};
+
+  if (value.length < 6) errors['minlength'] = true;
+  if (!/[A-Z]/.test(value)) errors['missingUpper'] = true;
+  if (!/[0-9]/.test(value)) errors['missingDigit'] = true;
+  if (!/[^a-zA-Z0-9]/.test(value)) errors['missingSpecial'] = true;
+
+  return Object.keys(errors).length ? errors : null;
   }
 
    
