@@ -5,18 +5,23 @@
     <div>
       <label>Type:</label>
       <select formControlName="trainingType">
-        @for(type of trainingTypes; track $index){
-        <option [value]="$index">{{type}}</option>
-        }
-      </select>
+        <option value="">Select training type</option> 
+        <option *ngFor="let type of trainingTypes" [value]="type">{{ type }}</option> 
+      </select> 
+      <small *ngIf="f.trainingType.touched && f.trainingType.hasError('required')">
+        Please select a training type.
+      </small>
     </div>
 
     <div>
-      <label>Date:</label>
-      <input type="datetime-local" formControlName="date">
-      <small *ngIf="f.date.invalid && f.date.touched">
-        Date is required.
-      </small>
+      <label>Date</label>
+      <input
+        type="datetime-local"
+        formControlName="date"
+        [attr.max]="maxDateTime"
+      />
+      <small *ngIf="f.date.touched && f.date.hasError('required')">Date is required.</small>
+      <small *ngIf="f.date.touched && f.date.hasError('futureDate')">Date cannot be in the future.</small>
     </div>
 
     <div>

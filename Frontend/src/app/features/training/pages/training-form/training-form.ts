@@ -1,11 +1,27 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { TrainingType } from '../../../../shared/models/training-type.enum';
 import { TrainingService } from '../../services/training.service';
 import { TrainingSession } from '../../../../shared/models/training-session.model';
 import { Router } from '@angular/router';
 
+function notInFutureValidator(control: AbstractControl): ValidationErrors | null {
+  const val = control.value;
+  if (!val) return null;
+
+  // handle date-only "YYYY-MM-DD" and datetime-local "YYYY-MM-DDTHH:MM"
+  let selected: Date;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(val)) {
+    const [y, m, d] = val.split('-').map(Number);
+    selected = new Date(y, m - 1, d, 23, 59, 59, 999);
+  } else {
+    selected = new Date(val);
+  }
+
+  const now = new Date();
+  return selected.getTime() > now.getTime() ? { futureDate: true } : null;
+}
 @Component({
   selector: 'app-training-form',
   imports: [CommonModule, ReactiveFormsModule],
@@ -18,6 +34,8 @@ export class TrainingForm  {
   private trainingService = inject(TrainingService);
 
   trainingTypes = Object.values(TrainingType).filter(value => typeof value === 'string') as string[];
+
+   maxDateTime = this.getLocalDateTimeString();
 
   trainingForm = this.fb.nonNullable.group({
     trainingType: [TrainingType.Cardio, Validators.required],
@@ -38,17 +56,26 @@ export class TrainingForm  {
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     return now.toISOString().slice(0, 16);
   }
+  private getLocalDateTimeString(): string {
+    const d = new Date();
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+    return d.toISOString().slice(0, 16);
+  }
+
 
    onSubmit() {
-    if (this.trainingForm.valid) {
-      console.log('Form Data:', this.trainingForm.value);
-        const request: TrainingSession = {
-    ...this.trainingForm.getRawValue(),
-  };
+    if (this.trainingForm.invalid) {
+      this.trainingForm.markAllAsTouched();
+      return;
+    }
+    const request: TrainingSession = {
+      ...this.trainingForm.getRawValue(),
+    };
 
-      this.trainingService.createTrainingSession(request).subscribe({
+    this.trainingService.createTrainingSession(request).subscribe({
         next: () => this.router.navigate(["/all-trainings"])
       });
+  };
+
+      
     }
-  }
-}
