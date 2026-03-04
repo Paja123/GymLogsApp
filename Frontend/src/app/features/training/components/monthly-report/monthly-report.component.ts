@@ -60,9 +60,13 @@ export class MonthlyReportComponent {
     const data = this.report();
     const totalDuration = data.reduce((sum, week) => sum + (week.totalDuration ?? 0), 0);
     const totalTrainingSessionsCount = data.reduce((sum, week) => sum + (week.trainingSessionsCount ?? 0), 0);
-    const avgIntesity = data.length ? +(data.reduce((sum, week) => sum + (week.averageIntensity ?? 0), 0) / data.length).toFixed(2) : 0;
-    const avgTiredness = data.length ? +(data.reduce((sum, week) => sum + (week.averageTiredness ?? 0), 0) / data.length).toFixed(2) : 0;
     
+    const avgIntesity = totalTrainingSessionsCount
+    ? +(data.reduce((sum, week) => sum + (week.averageIntensity ?? 0) * (week.trainingSessionsCount ?? 0), 0) / totalTrainingSessionsCount).toFixed(2): 0;
+
+  const avgTiredness = totalTrainingSessionsCount
+    ? +(data.reduce((sum, week) => sum + (week.averageTiredness ?? 0) * (week.trainingSessionsCount ?? 0), 0) / totalTrainingSessionsCount).toFixed(2): 0;
+
     return { totalDuration, totalTrainingSessionsCount, avgIntesity, avgTiredness};
   });
 
