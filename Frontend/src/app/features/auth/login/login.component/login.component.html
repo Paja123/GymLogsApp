@@ -1,0 +1,41 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h2 class="auth-title">Sign in</h2>
+    <p class="auth-sub">Access your training sessions</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="field">
+        <div class="field-label">Email</div>
+        <input type="email" formControlName="email" placeholder="you@example.com" />
+        <div class="field-error" *ngIf="form.controls.email.touched && form.controls.email.invalid">
+          <span *ngIf="form.controls.email.hasError('required')">Email is required.</span>
+          <span *ngIf="form.controls.email.hasError('email')">Enter a valid email.</span>
+        </div>
+      </label>
+
+      <label class="field">
+        <div class="field-label">Password</div>
+        <div class="password-row">
+          <input [type]="showPassword() ? 'text' : 'password'" formControlName="password" placeholder="••••••••" />
+          <button type="button" class="btn-ghost small" (click)="togglePassword()" [attr.aria-pressed]="showPassword()">
+            {{ showPassword() ? 'Hide' : 'Show' }}
+          </button>
+        </div>
+        <div class="field-error" *ngIf="form.controls.password.touched && form.controls.password.invalid">
+          <span *ngIf="form.controls.password.hasError('required')">Password is required.</span>
+          <span *ngIf="form.controls.password.hasError('minlength')">Minimum 8 characters.</span>
+        </div>
+      </label>
+
+      <div class="actions">
+        <button class="btn" type="submit" [disabled]="loading()">
+          <span *ngIf="!loading()">Sign in</span>
+          <span *ngIf="loading()">Signing in…</span>
+        </button>
+        <a routerLink="/register" class="link">Create account</a>
+      </div>
+
+      <div class="error" *ngIf="error()">{{ error() }}</div>
+    </form>
+  </div>
+</div>

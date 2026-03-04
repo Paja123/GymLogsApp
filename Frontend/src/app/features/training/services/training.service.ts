@@ -18,7 +18,7 @@ export class TrainingService {
     return this.http.post<TrainingSession>(this.apiUrl, training);
   }
   getAll(): Observable<TrainingSessionResponseDto[]> {
-    return this.http.get<TrainingSessionResponseDto[]>(this.apiUrl);
+    return this.http.get<TrainingSessionResponseDto[]>(this.apiUrl, {});
   }
   delete(id: string): Observable<boolean> {
     return this.http.delete<boolean>(`${this.apiUrl}/${id}`);

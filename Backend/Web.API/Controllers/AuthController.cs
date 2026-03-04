@@ -29,6 +29,8 @@ namespace Web_API.Controllers
             Response.Cookies.Delete("jwt");
             return NoContent();
         }
-
+        [HttpGet("me")]
+        [Authorize]
+        public IActionResult Me() => Ok(new { User.Identity!.Name });
     }
 }

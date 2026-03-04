@@ -1,4 +1,4 @@
-<nav class="navbar">
+<!-- <nav class="navbar">
   <h1> GymLogger</h1>
   <ul>
     <li><a routerLink="/create">Add training session</a></li>
@@ -9,4 +9,15 @@
 
 <main>
   <router-outlet></router-outlet>
-</main>
+</main> -->
+
+<div class="app-shell">
+  <app-navbar></app-navbar>
+  <main class="main">
+    <router-outlet></router-outlet> 
+  </main>
+
+  <footer class = "container" style ="padding:18px 16px; color:var(--muted); font-size:0.9rem;" >
+     © GymLogger — built with care
+  </footer>
+</div>

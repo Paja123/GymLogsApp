@@ -3,25 +3,23 @@ import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, throwError } from "rxjs";
 import { ProblemDetails } from "../models/problem-details.model";
+
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     
     const router = inject(Router);
    
     return next(req).pipe(
       catchError((err: HttpErrorResponse) => {
-        
         const errorData = err.error as ProblemDetails;
 
-        if (errorData?.title && errorData?.status) {
-            
         switch (err.status) {
         case 400:
             console.error('Validaton error from backend:', errorData.errors);
-							alert(`Data validation error: ${errorData.detail}`);
-
+            alert(`Data validation error: ${errorData.detail}`);
             break;
         case 401:
-            // TODO: istekao jwt token, preusmeri na login
+            alert('Unauthorized: Please log in to access this resource.');
+            router.navigate(['/login']);
             break;
         case 404:
             break;
@@ -35,7 +33,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         default:
             console.error('Unknown error:', err);
         }
-        }   
+          
         return throwError(() => err);
         })
     );

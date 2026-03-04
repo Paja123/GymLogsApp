@@ -15,14 +15,16 @@ namespace Application.Feature.TrainingSessions.Commands.Create
             _trainingSessionsRepository = trainingSessionsRepository;
         }
         public override async Task<Guid> Handle(CreateTrainingSessionCommand request, CancellationToken cancellationToken)
-        {
-            if(await OverlapingSessionExists(getUserId(), request.Date, request.Duration))
+        {   
+            string userId = getUserId();
+            if (await OverlapingSessionExists(userId, request.Date, request.Duration))
             {
                 throw new TrainingSessionOverlapException();
             }
 
             var session = new TrainingSession
             {
+                UserId = userId,
                 TrainingType = request.TrainingType,
                 Duration = request.Duration,
                 CaloriesBurned = request.CaloriesBurned,
