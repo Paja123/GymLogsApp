@@ -74,7 +74,6 @@ export class MonthlyReportComponent {
 
   fetchReport(): void{
     if (this.isFuture()) {
-      this.error.set('Cannot fetch report for future month');
       return;
   }
 

@@ -15,6 +15,7 @@ namespace Web_API.Handlers
             var (statusCode, title) = exception switch
             {
                 ValidationException => (StatusCodes.Status400BadRequest, "Validation Error"),
+                ConflictException =>(StatusCodes.Status409Conflict, "Conflict"),
                 TrainingSessionOverlapException => (StatusCodes.Status409Conflict, "Overlapping Session Error"),
                 _ => (StatusCodes.Status500InternalServerError, "Server Error")
             };

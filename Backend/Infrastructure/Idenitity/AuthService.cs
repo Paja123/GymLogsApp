@@ -1,6 +1,6 @@
 ﻿using Application.Common.Interfaces;
+using Application.Exceptions;
 using Application.Feature.Auth.Common;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -25,6 +25,8 @@ namespace Infrastructure.Idenitity
             _tokenService = tokenService;
             _httpContextAccessor = httpContextAccessor;
         }
+
+     
         public async Task<AuthResponse> LoginAsync(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email)
@@ -45,6 +47,13 @@ namespace Infrastructure.Idenitity
 
         public async Task<AuthResponse> RegisterAsync(string FirstName, string LastName, string Username, string email, string password)
         {
+            if (await _userManager.FindByEmailAsync(email) != null)
+                throw new ConflictException("Email is already taken");
+
+            if (await _userManager.FindByNameAsync(Username) != null)
+                throw new ConflictException("Username is already taken");
+
+
             var user = new ApplicationUser
             {
                 FirstName = FirstName,
