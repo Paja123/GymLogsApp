@@ -18,9 +18,8 @@ namespace Application.Feature.TrainingSessions.Commands.Create
         {   
             string userId = getUserId();
             if (await OverlapingSessionExists(userId, request.Date, request.Duration))
-            {
                 throw new TrainingSessionOverlapException();
-            }
+            
 
             var session = new TrainingSession
             {
